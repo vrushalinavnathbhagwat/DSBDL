@@ -1,0 +1,215 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
+data=pd.read_csv('iris.csv')
+
+data
+
+data.head()
+
+data.tail()
+
+data.dtypes
+
+data.isnull()
+
+data.describe()
+
+data.shape
+
+data.dtypes
+
+import matplotlib.pyplot as plt
+
+plt.hist(data['petal_length'])
+plt.title("Histogram of petal_length")
+
+# Plot Histogram using sns
+sns.histplot(data = data , x = "petal_length",  kde = True , hue = "species")
+
+plt.hist(data['petal_width'])
+plt.title("Histogram of petal_width")
+
+sns.histplot(data = data , x = "petal_width", kde= True , hue = "species" , palette = "bright")
+
+plt.hist(data['sepal_length'])
+plt.title("Histogram of sepal_length")
+
+sns.histplot(data = data , x = "sepal_length", kde = True ,  hue = "species" , palette = "bright")
+
+plt.hist(data['sepal_width'])
+plt.title("Histogram of sepal_width")
+
+sns.histplot(data = data , x = "sepal_width", kde= True , hue = "species" , palette = "bright")
+
+sns.pairplot(data, hue='species' , palette = "bright")
+
+print("Mean value of petal_length" , data['petal_length'].mean())
+print("Std value of petal_length" , data['petal_length'].std())
+print("Min value of petal_length" , data['petal_length'].min())
+print("Max value of petal_length" , data['petal_length'].max())
+
+
+print("Highest allowed" , data['petal_lentgh'].mean() + 3*data['petal_length'].std())
+print("Lowest allowed" , data['petal_length'].mean() - 3*data['petal_length'].std())
+
+data[(data['petal_length'] > 11.96) | (data['petal_length'] < -3.49)]
+
+data['petal_length_zscore'] = (data['petal_length'] - data['petal_length'].mean()) / data['petal_length'].std()
+data.head(160)
+
+data[data['petal_length_zscore'] > 3]
+
+data[data['petal_length_zscore'] < -3]
+
+print("Mean value of sepal_width" , data['sepal_width'].mean())
+print("Std value of sepal_width" , data['sepal_width'].std())
+print("Min value of sepal_width" , data['sepal_width'].min())
+print("Max value of sepal_width" , data['sepal_width'].max())
+
+print("Highest allowed" , data['sepal_width'].mean() + 3*data['sepal_width'].std())
+print("Lowest allowed" , data['sepal_width'].mean() - 3*data['sepal_width'].std())
+
+data[(data['sepal_width'] > 4.54) | (data['sepal_width'] < 1.58)]
+
+data['sepal_width_zscore'] = (data['sepal_width'] - data['sepal_width'].mean()) / data['sepal_width'].std()
+data.head(160)
+
+data[data['sepal_width_zscore'] < -3]
+
+plt.boxplot(data['petal_length'])
+#boxplot function is from the matplotlib library
+plt.title("Box plot of petal length")
+
+plt.boxplot(data['petal_width'])
+plt.title("Box plot of petal width")
+
+plt.boxplot(data['sepal_length'])
+plt.title("Box plot of sepal length")
+
+plt.boxplot(data['sepal_width'])
+plt.title("Box plot of sepal width")
+
+data.corr()
+
+corr = data.corr()
+#calculates correlation between different variables in dataset and creates a correlation matrix
+fig, ax = plt.subplots(figsize=(5,4))
+#creates a plot with specific size of 5 inches in width and 4 inches in height
+
+sns.heatmap(corr, annot=True, ax=ax , cmap= 'coolwarm')
+
+#Separate features and target
+
+df = data.values
+
+X = df[:,0:4]
+Y = df[:,4]
+print(X)
+
+print(Y)
+
+#Split the data to train and test dataset
+
+from sklearn.model_selection import train_test_split
+X_train , X_test , Y_train , Y_test = train_test_split(X , Y , test_size=0.2)
+print(X_train)
+print(Y_train)
+
+#MODEL1 SVM
+
+from sklearn.svm import SVC
+
+#model fitting
+
+model_svc = SVC()
+model_svc.fit(X_train , Y_train)
+
+
+prediction1 = model_svc.predict(X_test)
+
+#caalculate accuracy
+from sklearn.metrics import accuracy_score
+print(accuracy_score(Y_test , prediction1)*100)
+for i in range (len(prediction1)):
+ print(Y_test[i],prediction1[i])
+
+#Model2 Logistic Regression
+
+from sklearn.linear_model import LogisticRegression
+
+#model fitting
+
+model_LR = LogisticRegression()
+model_LR.fit(X_train , Y_train)
+
+prediction2 = model_LR.predict(X_test)
+
+#caalculate accuracy
+from sklearn.metrics import accuracy_score
+print(accuracy_score(Y_test , prediction2)*100)
+for i in range (len(prediction2)):
+ print(Y_test[i],prediction2[i])
+
+#MODEL3:DECISION TREE CLASSIFIER
+from sklearn.tree import DecisionTreeClassifier
+
+#model fitting
+
+model_DTC = DecisionTreeClassifier()
+model_DTC.fit(X_train , Y_train)
+
+prediction3 = model_DTC.predict(X_test)
+
+#caalculate accuracy
+from sklearn.metrics import accuracy_score
+print(accuracy_score(Y_test , prediction3)*100)
+for i in range (len(prediction3)):
+ print(Y_test[i],prediction3[i])
+
+#A DETAILED CLASSIFICATION REPORT
+
+from sklearn.metrics import classification_report
+print(classification_report(Y_test , prediction2))
+
+#predicting for the new entries made manually
+
+X_new = np.array([[3 , 1 , 2 , 0] , [3, 5 ,1 ,1] , [10 ,2 , 3.8 , 1.1] , [5.3 , 2.5 , 4 , 1]])
+prediction = model_DTC.predict(X_new) 
+print("Prediction of species: {}".format(prediction))
+
+np.percentile( data['petal_length'] , 50)
+
+np.percentile( data['petal_length'] , 25)
+
+np.percentile( data['petal_length'] , 75)
+
+np.percentile( data['petal_width'] , 50)
+
+np.percentile( data['petal_width'] , 25)
+
+np.percentile( data['petal_width'] , 75)
+
+np.percentile( data['sepal_length'] , 50)
+
+np.percentile( data['sepal_length'] , 25)
+
+np.percentile( data['sepal_length'] , 75)
+
+np.percentile( data['sepal_width'] , 50)
+
+np.percentile( data['sepal_width'] , 25)
+
+np.percentile( data['sepal_width'] , 75)
+
+print("Mean value of sepal_width" , data['sepal_width'].mean())
+print("Std value of sepal_width" , data['sepal_width'].std())
+print("Min value of sepal_width" , data['sepal_width'].min())
+print("Max value of sepal_width" , data['sepal_width'].max())
+
+print("Mean value of sepal_length" , data['sepal_length'].mean())
+print("Mode value of sepal_width" , data['species'].mode())
+print("Std value of sepal_length" , data['sepal_length'].std())
+print("Min value of sepal_length" , data['sepal_length'].min())
+print("Max value of sepal_length" , data['sepal_length'].max())

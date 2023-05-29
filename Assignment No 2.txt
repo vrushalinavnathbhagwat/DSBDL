@@ -1,0 +1,36 @@
+import pandas as pd
+import numpy as np 
+data = {'Name': ['John', 'Emily', 'Sarah', 'David', 'Michael'], 
+        'Age' : [18,19,18,17,20],
+        'Gender' :['Male','Female','Female','Male','Male'],
+        'Grade' : ['A','B','C','A','B'],
+        'Maths': [90, 75, 60, 95, np.nan],
+        'Science': [80, 85, 78, np.nan, 65],
+        'English': [75, 70, 80, 85, 98],
+        'Attendance': [98, 50, 95, 68, 100]}
+
+df = data
+print(df)
+df = pd.DataFrame(data)
+print(df)
+df['Attendance_log'] = np.log(df['Attendance'])
+
+# Check the distribution before and after transformation using histogram
+import matplotlib.pyplot as plt
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+axs[0].hist(df['Attendance'], bins=30)
+axs[0].set_title('Attendance distribution (before transformation)')
+axs[1].hist(df['Attendance_log'], bins=30)
+axs[1].set_title('Attendance distribution (after transformation)')
+plt.show()
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+df["Attendance_standardized"] = scaler.fit_transform(df[["Attendance"]])
+df["Attendance_standardized"]
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+df["Attendance_norm"] = scaler.fit_transform(df[["Attendance"]])
+df["Attendance_norm"]
+df.describe()
+df["Attendance_standardized"].describe()
+df["Attendance_norm"].describe()

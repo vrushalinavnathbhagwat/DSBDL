@@ -1,0 +1,25 @@
+import pandas as pd
+import numpy as np
+import sklearn
+salary = pd.read_csv('Salary_Data.csv')
+df=salary
+df.head()
+df=df.drop('YearsExperience',axis=1)
+df.head()
+df.shape
+df.mean()
+df.median()
+df.Age.mode()
+df.groupby(['Age']).count()
+df.isnull()
+import matplotlib.pyplot as plt        # matplotlib is plotting library for the Python programming language and its numerical mathematics extension NumPy.
+from matplotlib import pyplot as plt
+data = pd.read_csv('Salary_Data.csv') 
+x = data['Age']
+y = data['Salary']
+plt.title("AgeSalary Dataset")
+plt.ylabel('Salary')
+plt.xlabel('Age')
+
+plt.bar(x, y)
+plt.show()

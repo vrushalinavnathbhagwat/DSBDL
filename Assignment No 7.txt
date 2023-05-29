@@ -1,0 +1,2575 @@
+Loading...
+TextAnalytics_Part1.ipynb
+TextAnalytics_Part1.ipynb_Notebook unstarred
+u7. Text Analytics
+
+*1)Extract Sample document and apply following document preprocessing methods: Tokenization, POS Tagging, stop words removal, Stemming and Lemmatization *
+
+[ ]
+import nltk
+Tokenization
+[ ]
+text="Tokenization is the first step in text analytics. The process of breaking down a text paragraph into smaller chunks such as words or sentences is called Tokenization."
+from nltk.tokenize import sent_tokenize
+tokenized_text=sent_tokenize(text)
+tokenized_text
+[ ]
+from nltk.tokenize import word_tokenize
+tokenized_word=word_tokenize(text)
+tokenized_word
+['Tokenization',
+ 'is',
+ 'the',
+ 'first',
+ 'step',
+ 'in',
+ 'text',
+ 'analytics',
+ '.',
+ 'The',
+ 'process',
+ 'of',
+ 'breaking',
+ 'down',
+ 'a',
+ 'text',
+ 'paragraph',
+ 'into',
+ 'smaller',
+ 'chunks',
+ 'such',
+ 'as',
+ 'words',
+ 'or',
+ 'sentences',
+ 'is',
+ 'called',
+ 'Tokenization',
+ '.']
+to remove the stop words and puntuactions
+
+[ ]
+from nltk.corpus import stopwords
+stop_words=set(stopwords.words("english"))
+nltk.corpus is a collection of corpus reader classes which are use to access the contets of a diverse set of corpora corpora - it is a massive dump of all kind of data
+
+[ ]
+stop_words
+{'a',
+ 'about',
+ 'above',
+ 'after',
+ 'again',
+ 'against',
+ 'ain',
+ 'all',
+ 'am',
+ 'an',
+ 'and',
+ 'any',
+ 'are',
+ 'aren',
+ "aren't",
+ 'as',
+ 'at',
+ 'be',
+ 'because',
+ 'been',
+ 'before',
+ 'being',
+ 'below',
+ 'between',
+ 'both',
+ 'but',
+ 'by',
+ 'can',
+ 'couldn',
+ "couldn't",
+ 'd',
+ 'did',
+ 'didn',
+ "didn't",
+ 'do',
+ 'does',
+ 'doesn',
+ "doesn't",
+ 'doing',
+ 'don',
+ "don't",
+ 'down',
+ 'during',
+ 'each',
+ 'few',
+ 'for',
+ 'from',
+ 'further',
+ 'had',
+ 'hadn',
+ "hadn't",
+ 'has',
+ 'hasn',
+ "hasn't",
+ 'have',
+ 'haven',
+ "haven't",
+ 'having',
+ 'he',
+ 'her',
+ 'here',
+ 'hers',
+ 'herself',
+ 'him',
+ 'himself',
+ 'his',
+ 'how',
+ 'i',
+ 'if',
+ 'in',
+ 'into',
+ 'is',
+ 'isn',
+ "isn't",
+ 'it',
+ "it's",
+ 'its',
+ 'itself',
+ 'just',
+ 'll',
+ 'm',
+ 'ma',
+ 'me',
+ 'mightn',
+ "mightn't",
+ 'more',
+ 'most',
+ 'mustn',
+ "mustn't",
+ 'my',
+ 'myself',
+ 'needn',
+ "needn't",
+ 'no',
+ 'nor',
+ 'not',
+ 'now',
+ 'o',
+ 'of',
+ 'off',
+ 'on',
+ 'once',
+ 'only',
+ 'or',
+ 'other',
+ 'our',
+ 'ours',
+ 'ourselves',
+ 'out',
+ 'over',
+ 'own',
+ 're',
+ 's',
+ 'same',
+ 'shan',
+ "shan't",
+ 'she',
+ "she's",
+ 'should',
+ "should've",
+ 'shouldn',
+ "shouldn't",
+ 'so',
+ 'some',
+ 'such',
+ 't',
+ 'than',
+ 'that',
+ "that'll",
+ 'the',
+ 'their',
+ 'theirs',
+ 'them',
+ 'themselves',
+ 'then',
+ 'there',
+ 'these',
+ 'they',
+ 'this',
+ 'those',
+ 'through',
+ 'to',
+ 'too',
+ 'under',
+ 'until',
+ 'up',
+ 've',
+ 'very',
+ 'was',
+ 'wasn',
+ "wasn't",
+ 'we',
+ 'were',
+ 'weren',
+ "weren't",
+ 'what',
+ 'when',
+ 'where',
+ 'which',
+ 'while',
+ 'who',
+ 'whom',
+ 'why',
+ 'will',
+ 'with',
+ 'won',
+ "won't",
+ 'wouldn',
+ "wouldn't",
+ 'y',
+ 'you',
+ "you'd",
+ "you'll",
+ "you're",
+ "you've",
+ 'your',
+ 'yours',
+ 'yourself',
+ 'yourselves'}
+[ ]
+text="How to remove stop words in my NLTK library in python?????"
+import re
+#python has a build-in package called re,which used to work with Regular expressions
+text=re.sub('[^a-zA-Z]',' ' ,text)
+text
+
+[ ]
+tokens=word_tokenize(text.lower())
+tokens
+['how',
+ 'to',
+ 'remove',
+ 'stop',
+ 'words',
+ 'in',
+ 'my',
+ 'nltk',
+ 'library',
+ 'in',
+ 'python']
+[ ]
+filtered_text=[]
+for w in tokens:
+ if w not in stop_words:
+    filtered_text.append(w)
+[ ]
+filtered_text
+['remove', 'stop', 'words', 'nltk', 'library', 'python']
+Steamming
+
+[ ]
+from nltk.stem import PorterStemmer
+e_words=["wait","waiting","waited","waits"]
+ps =PorterStemmer()
+for w in e_words:
+  rootWord=ps.stem(w)
+  print(rootWord)
+wait
+wait
+wait
+wait
+Lemmatization
+
+nltk.download() to install the missing module
+
+[ ]
+import nltk
+nltk.download('all')
+[nltk_data] Downloading collection 'all'
+[nltk_data]    | 
+[nltk_data]    | Downloading package abc to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/abc.zip.
+[nltk_data]    | Downloading package alpino to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/alpino.zip.
+[nltk_data]    | Downloading package averaged_perceptron_tagger to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Package averaged_perceptron_tagger is already up-
+[nltk_data]    |       to-date!
+[nltk_data]    | Downloading package averaged_perceptron_tagger_ru to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping
+[nltk_data]    |       taggers/averaged_perceptron_tagger_ru.zip.
+[nltk_data]    | Downloading package basque_grammars to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping grammars/basque_grammars.zip.
+[nltk_data]    | Downloading package bcp47 to /root/nltk_data...
+[nltk_data]    | Downloading package biocreative_ppi to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/biocreative_ppi.zip.
+[nltk_data]    | Downloading package bllip_wsj_no_aux to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping models/bllip_wsj_no_aux.zip.
+[nltk_data]    | Downloading package book_grammars to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping grammars/book_grammars.zip.
+[nltk_data]    | Downloading package brown to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/brown.zip.
+[nltk_data]    | Downloading package brown_tei to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/brown_tei.zip.
+[nltk_data]    | Downloading package cess_cat to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/cess_cat.zip.
+[nltk_data]    | Downloading package cess_esp to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/cess_esp.zip.
+[nltk_data]    | Downloading package chat80 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/chat80.zip.
+[nltk_data]    | Downloading package city_database to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/city_database.zip.
+[nltk_data]    | Downloading package cmudict to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/cmudict.zip.
+[nltk_data]    | Downloading package comparative_sentences to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/comparative_sentences.zip.
+[nltk_data]    | Downloading package comtrans to /root/nltk_data...
+[nltk_data]    | Downloading package conll2000 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/conll2000.zip.
+[nltk_data]    | Downloading package conll2002 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/conll2002.zip.
+[nltk_data]    | Downloading package conll2007 to /root/nltk_data...
+[nltk_data]    | Downloading package crubadan to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/crubadan.zip.
+[nltk_data]    | Downloading package dependency_treebank to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/dependency_treebank.zip.
+[nltk_data]    | Downloading package dolch to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/dolch.zip.
+[nltk_data]    | Downloading package europarl_raw to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/europarl_raw.zip.
+[nltk_data]    | Downloading package extended_omw to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    | Downloading package floresta to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/floresta.zip.
+[nltk_data]    | Downloading package framenet_v15 to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/framenet_v15.zip.
+[nltk_data]    | Downloading package framenet_v17 to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/framenet_v17.zip.
+[nltk_data]    | Downloading package gazetteers to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/gazetteers.zip.
+[nltk_data]    | Downloading package genesis to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/genesis.zip.
+[nltk_data]    | Downloading package gutenberg to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/gutenberg.zip.
+[nltk_data]    | Downloading package ieer to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/ieer.zip.
+[nltk_data]    | Downloading package inaugural to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/inaugural.zip.
+[nltk_data]    | Downloading package indian to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/indian.zip.
+[nltk_data]    | Downloading package jeita to /root/nltk_data...
+[nltk_data]    | Downloading package kimmo to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/kimmo.zip.
+[nltk_data]    | Downloading package knbc to /root/nltk_data...
+[nltk_data]    | Downloading package large_grammars to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping grammars/large_grammars.zip.
+[nltk_data]    | Downloading package lin_thesaurus to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/lin_thesaurus.zip.
+[nltk_data]    | Downloading package mac_morpho to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/mac_morpho.zip.
+[nltk_data]    | Downloading package machado to /root/nltk_data...
+[nltk_data]    | Downloading package masc_tagged to /root/nltk_data...
+[nltk_data]    | Downloading package maxent_ne_chunker to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping chunkers/maxent_ne_chunker.zip.
+[nltk_data]    | Downloading package maxent_treebank_pos_tagger to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping taggers/maxent_treebank_pos_tagger.zip.
+[nltk_data]    | Downloading package moses_sample to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping models/moses_sample.zip.
+[nltk_data]    | Downloading package movie_reviews to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/movie_reviews.zip.
+[nltk_data]    | Downloading package mte_teip5 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/mte_teip5.zip.
+[nltk_data]    | Downloading package mwa_ppdb to /root/nltk_data...
+[nltk_data]    |   Unzipping misc/mwa_ppdb.zip.
+[nltk_data]    | Downloading package names to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/names.zip.
+[nltk_data]    | Downloading package nombank.1.0 to /root/nltk_data...
+[nltk_data]    | Downloading package nonbreaking_prefixes to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/nonbreaking_prefixes.zip.
+[nltk_data]    | Downloading package nps_chat to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/nps_chat.zip.
+[nltk_data]    | Downloading package omw to /root/nltk_data...
+[nltk_data]    | Downloading package omw-1.4 to /root/nltk_data...
+[nltk_data]    | Downloading package opinion_lexicon to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/opinion_lexicon.zip.
+[nltk_data]    | Downloading package panlex_swadesh to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    | Downloading package paradigms to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/paradigms.zip.
+[nltk_data]    | Downloading package pe08 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/pe08.zip.
+[nltk_data]    | Downloading package perluniprops to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping misc/perluniprops.zip.
+[nltk_data]    | Downloading package pil to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/pil.zip.
+[nltk_data]    | Downloading package pl196x to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/pl196x.zip.
+[nltk_data]    | Downloading package porter_test to /root/nltk_data...
+[nltk_data]    |   Unzipping stemmers/porter_test.zip.
+[nltk_data]    | Downloading package ppattach to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/ppattach.zip.
+[nltk_data]    | Downloading package problem_reports to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/problem_reports.zip.
+[nltk_data]    | Downloading package product_reviews_1 to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/product_reviews_1.zip.
+[nltk_data]    | Downloading package product_reviews_2 to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/product_reviews_2.zip.
+[nltk_data]    | Downloading package propbank to /root/nltk_data...
+[nltk_data]    | Downloading package pros_cons to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/pros_cons.zip.
+[nltk_data]    | Downloading package ptb to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/ptb.zip.
+[nltk_data]    | Downloading package punkt to /root/nltk_data...
+[nltk_data]    |   Package punkt is already up-to-date!
+[nltk_data]    | Downloading package qc to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/qc.zip.
+[nltk_data]    | Downloading package reuters to /root/nltk_data...
+[nltk_data]    | Downloading package rslp to /root/nltk_data...
+[nltk_data]    |   Unzipping stemmers/rslp.zip.
+[nltk_data]    | Downloading package rte to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/rte.zip.
+[nltk_data]    | Downloading package sample_grammars to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping grammars/sample_grammars.zip.
+[nltk_data]    | Downloading package semcor to /root/nltk_data...
+[nltk_data]    | Downloading package senseval to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/senseval.zip.
+[nltk_data]    | Downloading package sentence_polarity to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/sentence_polarity.zip.
+[nltk_data]    | Downloading package sentiwordnet to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/sentiwordnet.zip.
+[nltk_data]    | Downloading package shakespeare to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/shakespeare.zip.
+[nltk_data]    | Downloading package sinica_treebank to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/sinica_treebank.zip.
+[nltk_data]    | Downloading package smultron to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/smultron.zip.
+[nltk_data]    | Downloading package snowball_data to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    | Downloading package spanish_grammars to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping grammars/spanish_grammars.zip.
+[nltk_data]    | Downloading package state_union to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/state_union.zip.
+[nltk_data]    | Downloading package stopwords to /root/nltk_data...
+[nltk_data]    |   Package stopwords is already up-to-date!
+[nltk_data]    | Downloading package subjectivity to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/subjectivity.zip.
+[nltk_data]    | Downloading package swadesh to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/swadesh.zip.
+[nltk_data]    | Downloading package switchboard to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/switchboard.zip.
+[nltk_data]    | Downloading package tagsets to /root/nltk_data...
+[nltk_data]    |   Unzipping help/tagsets.zip.
+[nltk_data]    | Downloading package timit to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/timit.zip.
+[nltk_data]    | Downloading package toolbox to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/toolbox.zip.
+[nltk_data]    | Downloading package treebank to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/treebank.zip.
+[nltk_data]    | Downloading package twitter_samples to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/twitter_samples.zip.
+[nltk_data]    | Downloading package udhr to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/udhr.zip.
+[nltk_data]    | Downloading package udhr2 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/udhr2.zip.
+[nltk_data]    | Downloading package unicode_samples to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/unicode_samples.zip.
+[nltk_data]    | Downloading package universal_tagset to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping taggers/universal_tagset.zip.
+[nltk_data]    | Downloading package universal_treebanks_v20 to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    | Downloading package vader_lexicon to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    | Downloading package verbnet to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/verbnet.zip.
+[nltk_data]    | Downloading package verbnet3 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/verbnet3.zip.
+[nltk_data]    | Downloading package webtext to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/webtext.zip.
+[nltk_data]    | Downloading package wmt15_eval to /root/nltk_data...
+[nltk_data]    |   Unzipping models/wmt15_eval.zip.
+[nltk_data]    | Downloading package word2vec_sample to
+[nltk_data]    |     /root/nltk_data...
+[nltk_data]    |   Unzipping models/word2vec_sample.zip.
+[nltk_data]    | Downloading package wordnet to /root/nltk_data...
+[nltk_data]    |   Package wordnet is already up-to-date!
+[nltk_data]    | Downloading package wordnet2021 to /root/nltk_data...
+[nltk_data]    | Downloading package wordnet2022 to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/wordnet2022.zip.
+[nltk_data]    | Downloading package wordnet31 to /root/nltk_data...
+[nltk_data]    | Downloading package wordnet_ic to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/wordnet_ic.zip.
+[nltk_data]    | Downloading package words to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/words.zip.
+[nltk_data]    | Downloading package ycoe to /root/nltk_data...
+[nltk_data]    |   Unzipping corpora/ycoe.zip.
+[nltk_data]    | 
+[nltk_data]  Done downloading collection all
+True
+[ ]
+from nltk.stem import WordNetLemmatizer
+wordnet_lemmatizer = WordNetLemmatizer()
+text = "Studies Studying cries cry"
+tokenization = nltk.word_tokenize(text)
+for w in tokenization:
+   print("Lemma for {} is {}".format(w, wordnet_lemmatizer.lemmatize(w)))
+Lemma for Studies is Studies
+Lemma for Studying is Studying
+Lemma for cries is cry
+Lemma for cry is cry
+Comparision
+
+[ ]
+from nltk.stem import PorterStemmer
+e_words=["Studies","Studying","cries","cry"]
+ps =PorterStemmer()
+for w in e_words:
+  rootWord=ps.stem(w)
+  print(rootWord)
+studi
+studi
+cri
+cri
+POS (part-of-speech) tagging Helps to give info about every word of the statement
+
+[ ]
+import nltk
+from nltk.tokenize import word_tokenize
+data = "The pink sweater fits her perfectly"
+words=word_tokenize(data)
+for word in words:
+  print(nltk.pos_tag([word]))
+[('The', 'DT')]
+[('pink', 'NN')]
+[('sweater', 'NN')]
+[('fits', 'NNS')]
+[('her', 'PRP$')]
+[('perfectly', 'RB')]
+CC: Coordinating conjunction CD: Cardinal number DT: Determiner EX: Existential there FW: Foreign word IN: Preposition or subordinating conjunction JJ: Adjective JJR: Adjective, comparative JJS: Adjective, superlative LS: List item marker MD: Modal NN: Noun, singular or mass NNS: Noun, plural NNP: Proper noun, singular NNPS: Proper noun, plural
+
+WhatsApp Image 2023-03-15 at 20.34.30.jpg
+
+WhatsApp Image 2023-03-15 at 20.34.06.jpg
+
+Tokenization
+
+[ ]
+text1="Paragraph 1: I love spending time with my family and friends. We always have so much fun together, whether it's going on a trip or just hanging out at home. I feel so lucky to have such a supportive and loving group of people in my life. Paragraph 2: I hate it when people are mean and disrespectful. It really gets under my skin and ruins my mood. I wish everyone could just be kind and understanding towards one another. Paragraph 3: I feel so happy when I achieve my goals, no matter how small they may be. It's a great feeling to know that I worked hard and accomplished something that I set out to do. Paragraph 4: I'm really upset that I didn't get the job I applied for. I put so much time and effort into my application and interview, and it's disheartening to not get the position. Paragraph 5: I'm grateful for all the amazing opportunities that have come my way. Whether it's a new job or a chance to travel, I feel so lucky to have these experiences and make the most of them. Paragraph 6: I'm so disappointed in myself for not being more disciplined with my diet and exercise routine. I know it's important for my health, but I just can't seem to stick to it. Paragraph 7: I feel anxious and stressed when I have a lot of work to do and not enough time to do it. It can be overwhelming and make me feel like I'm not in control. Paragraph 8: I'm excited to start a new chapter in my life, whether it's moving to a new city or starting a new job. Change can be scary, but it's also a chance for growth and new opportunities. Paragraph 9: I'm frustrated with the current political climate and the divisiveness that seems to be tearing our country apart. I wish we could all come together and work towards a common goal. Paragraph 10: I'm so proud of my friend for overcoming a difficult challenge and coming out stronger on the other side. It takes a lot of courage and resilience to face adversity, and they did it with grace and determination."
+
+from nltk.tokenize import sent_tokenize
+tokenized_text=sent_tokenize(text1)
+tokenized_text
+['Paragraph 1: I love spending time with my family and friends.',
+ "We always have so much fun together, whether it's going on a trip or just hanging out at home.",
+ 'I feel so lucky to have such a supportive and loving group of people in my life.',
+ 'Paragraph 2: I hate it when people are mean and disrespectful.',
+ 'It really gets under my skin and ruins my mood.',
+ 'I wish everyone could just be kind and understanding towards one another.',
+ 'Paragraph 3: I feel so happy when I achieve my goals, no matter how small they may be.',
+ "It's a great feeling to know that I worked hard and accomplished something that I set out to do.",
+ "Paragraph 4: I'm really upset that I didn't get the job I applied for.",
+ "I put so much time and effort into my application and interview, and it's disheartening to not get the position.",
+ "Paragraph 5: I'm grateful for all the amazing opportunities that have come my way.",
+ "Whether it's a new job or a chance to travel, I feel so lucky to have these experiences and make the most of them.",
+ "Paragraph 6: I'm so disappointed in myself for not being more disciplined with my diet and exercise routine.",
+ "I know it's important for my health, but I just can't seem to stick to it.",
+ 'Paragraph 7: I feel anxious and stressed when I have a lot of work to do and not enough time to do it.',
+ "It can be overwhelming and make me feel like I'm not in control.",
+ "Paragraph 8: I'm excited to start a new chapter in my life, whether it's moving to a new city or starting a new job.",
+ "Change can be scary, but it's also a chance for growth and new opportunities.",
+ "Paragraph 9: I'm frustrated with the current political climate and the divisiveness that seems to be tearing our country apart.",
+ 'I wish we could all come together and work towards a common goal.',
+ "Paragraph 10: I'm so proud of my friend for overcoming a difficult challenge and coming out stronger on the other side.",
+ 'It takes a lot of courage and resilience to face adversity, and they did it with grace and determination.']
+[ ]
+from nltk.tokenize import word_tokenize
+tokenized_word=word_tokenize(text1)
+tokenized_word
+['Paragraph',
+ '1',
+ ':',
+ 'I',
+ 'love',
+ 'spending',
+ 'time',
+ 'with',
+ 'my',
+ 'family',
+ 'and',
+ 'friends',
+ '.',
+ 'We',
+ 'always',
+ 'have',
+ 'so',
+ 'much',
+ 'fun',
+ 'together',
+ ',',
+ 'whether',
+ 'it',
+ "'s",
+ 'going',
+ 'on',
+ 'a',
+ 'trip',
+ 'or',
+ 'just',
+ 'hanging',
+ 'out',
+ 'at',
+ 'home',
+ '.',
+ 'I',
+ 'feel',
+ 'so',
+ 'lucky',
+ 'to',
+ 'have',
+ 'such',
+ 'a',
+ 'supportive',
+ 'and',
+ 'loving',
+ 'group',
+ 'of',
+ 'people',
+ 'in',
+ 'my',
+ 'life',
+ '.',
+ 'Paragraph',
+ '2',
+ ':',
+ 'I',
+ 'hate',
+ 'it',
+ 'when',
+ 'people',
+ 'are',
+ 'mean',
+ 'and',
+ 'disrespectful',
+ '.',
+ 'It',
+ 'really',
+ 'gets',
+ 'under',
+ 'my',
+ 'skin',
+ 'and',
+ 'ruins',
+ 'my',
+ 'mood',
+ '.',
+ 'I',
+ 'wish',
+ 'everyone',
+ 'could',
+ 'just',
+ 'be',
+ 'kind',
+ 'and',
+ 'understanding',
+ 'towards',
+ 'one',
+ 'another',
+ '.',
+ 'Paragraph',
+ '3',
+ ':',
+ 'I',
+ 'feel',
+ 'so',
+ 'happy',
+ 'when',
+ 'I',
+ 'achieve',
+ 'my',
+ 'goals',
+ ',',
+ 'no',
+ 'matter',
+ 'how',
+ 'small',
+ 'they',
+ 'may',
+ 'be',
+ '.',
+ 'It',
+ "'s",
+ 'a',
+ 'great',
+ 'feeling',
+ 'to',
+ 'know',
+ 'that',
+ 'I',
+ 'worked',
+ 'hard',
+ 'and',
+ 'accomplished',
+ 'something',
+ 'that',
+ 'I',
+ 'set',
+ 'out',
+ 'to',
+ 'do',
+ '.',
+ 'Paragraph',
+ '4',
+ ':',
+ 'I',
+ "'m",
+ 'really',
+ 'upset',
+ 'that',
+ 'I',
+ 'did',
+ "n't",
+ 'get',
+ 'the',
+ 'job',
+ 'I',
+ 'applied',
+ 'for',
+ '.',
+ 'I',
+ 'put',
+ 'so',
+ 'much',
+ 'time',
+ 'and',
+ 'effort',
+ 'into',
+ 'my',
+ 'application',
+ 'and',
+ 'interview',
+ ',',
+ 'and',
+ 'it',
+ "'s",
+ 'disheartening',
+ 'to',
+ 'not',
+ 'get',
+ 'the',
+ 'position',
+ '.',
+ 'Paragraph',
+ '5',
+ ':',
+ 'I',
+ "'m",
+ 'grateful',
+ 'for',
+ 'all',
+ 'the',
+ 'amazing',
+ 'opportunities',
+ 'that',
+ 'have',
+ 'come',
+ 'my',
+ 'way',
+ '.',
+ 'Whether',
+ 'it',
+ "'s",
+ 'a',
+ 'new',
+ 'job',
+ 'or',
+ 'a',
+ 'chance',
+ 'to',
+ 'travel',
+ ',',
+ 'I',
+ 'feel',
+ 'so',
+ 'lucky',
+ 'to',
+ 'have',
+ 'these',
+ 'experiences',
+ 'and',
+ 'make',
+ 'the',
+ 'most',
+ 'of',
+ 'them',
+ '.',
+ 'Paragraph',
+ '6',
+ ':',
+ 'I',
+ "'m",
+ 'so',
+ 'disappointed',
+ 'in',
+ 'myself',
+ 'for',
+ 'not',
+ 'being',
+ 'more',
+ 'disciplined',
+ 'with',
+ 'my',
+ 'diet',
+ 'and',
+ 'exercise',
+ 'routine',
+ '.',
+ 'I',
+ 'know',
+ 'it',
+ "'s",
+ 'important',
+ 'for',
+ 'my',
+ 'health',
+ ',',
+ 'but',
+ 'I',
+ 'just',
+ 'ca',
+ "n't",
+ 'seem',
+ 'to',
+ 'stick',
+ 'to',
+ 'it',
+ '.',
+ 'Paragraph',
+ '7',
+ ':',
+ 'I',
+ 'feel',
+ 'anxious',
+ 'and',
+ 'stressed',
+ 'when',
+ 'I',
+ 'have',
+ 'a',
+ 'lot',
+ 'of',
+ 'work',
+ 'to',
+ 'do',
+ 'and',
+ 'not',
+ 'enough',
+ 'time',
+ 'to',
+ 'do',
+ 'it',
+ '.',
+ 'It',
+ 'can',
+ 'be',
+ 'overwhelming',
+ 'and',
+ 'make',
+ 'me',
+ 'feel',
+ 'like',
+ 'I',
+ "'m",
+ 'not',
+ 'in',
+ 'control',
+ '.',
+ 'Paragraph',
+ '8',
+ ':',
+ 'I',
+ "'m",
+ 'excited',
+ 'to',
+ 'start',
+ 'a',
+ 'new',
+ 'chapter',
+ 'in',
+ 'my',
+ 'life',
+ ',',
+ 'whether',
+ 'it',
+ "'s",
+ 'moving',
+ 'to',
+ 'a',
+ 'new',
+ 'city',
+ 'or',
+ 'starting',
+ 'a',
+ 'new',
+ 'job',
+ '.',
+ 'Change',
+ 'can',
+ 'be',
+ 'scary',
+ ',',
+ 'but',
+ 'it',
+ "'s",
+ 'also',
+ 'a',
+ 'chance',
+ 'for',
+ 'growth',
+ 'and',
+ 'new',
+ 'opportunities',
+ '.',
+ 'Paragraph',
+ '9',
+ ':',
+ 'I',
+ "'m",
+ 'frustrated',
+ 'with',
+ 'the',
+ 'current',
+ 'political',
+ 'climate',
+ 'and',
+ 'the',
+ 'divisiveness',
+ 'that',
+ 'seems',
+ 'to',
+ 'be',
+ 'tearing',
+ 'our',
+ 'country',
+ 'apart',
+ '.',
+ 'I',
+ 'wish',
+ 'we',
+ 'could',
+ 'all',
+ 'come',
+ 'together',
+ 'and',
+ 'work',
+ 'towards',
+ 'a',
+ 'common',
+ 'goal',
+ '.',
+ 'Paragraph',
+ '10',
+ ':',
+ 'I',
+ "'m",
+ 'so',
+ 'proud',
+ 'of',
+ 'my',
+ 'friend',
+ 'for',
+ 'overcoming',
+ 'a',
+ 'difficult',
+ 'challenge',
+ 'and',
+ 'coming',
+ 'out',
+ 'stronger',
+ 'on',
+ 'the',
+ 'other',
+ 'side',
+ '.',
+ 'It',
+ 'takes',
+ 'a',
+ 'lot',
+ 'of',
+ 'courage',
+ 'and',
+ 'resilience',
+ 'to',
+ 'face',
+ 'adversity',
+ ',',
+ 'and',
+ 'they',
+ 'did',
+ 'it',
+ 'with',
+ 'grace',
+ 'and',
+ 'determination',
+ '.']
+to remove the stop words and puntuactions
+
+[ ]
+import re
+text1=re.sub('[^a-zA-Z]',' ' ,text1)
+text1
+
+
+[ ]
+tokens=word_tokenize(text1.lower())
+tokens
+['paragraph',
+ 'i',
+ 'love',
+ 'spending',
+ 'time',
+ 'with',
+ 'my',
+ 'family',
+ 'and',
+ 'friends',
+ 'we',
+ 'always',
+ 'have',
+ 'so',
+ 'much',
+ 'fun',
+ 'together',
+ 'whether',
+ 'it',
+ 's',
+ 'going',
+ 'on',
+ 'a',
+ 'trip',
+ 'or',
+ 'just',
+ 'hanging',
+ 'out',
+ 'at',
+ 'home',
+ 'i',
+ 'feel',
+ 'so',
+ 'lucky',
+ 'to',
+ 'have',
+ 'such',
+ 'a',
+ 'supportive',
+ 'and',
+ 'loving',
+ 'group',
+ 'of',
+ 'people',
+ 'in',
+ 'my',
+ 'life',
+ 'paragraph',
+ 'i',
+ 'hate',
+ 'it',
+ 'when',
+ 'people',
+ 'are',
+ 'mean',
+ 'and',
+ 'disrespectful',
+ 'it',
+ 'really',
+ 'gets',
+ 'under',
+ 'my',
+ 'skin',
+ 'and',
+ 'ruins',
+ 'my',
+ 'mood',
+ 'i',
+ 'wish',
+ 'everyone',
+ 'could',
+ 'just',
+ 'be',
+ 'kind',
+ 'and',
+ 'understanding',
+ 'towards',
+ 'one',
+ 'another',
+ 'paragraph',
+ 'i',
+ 'feel',
+ 'so',
+ 'happy',
+ 'when',
+ 'i',
+ 'achieve',
+ 'my',
+ 'goals',
+ 'no',
+ 'matter',
+ 'how',
+ 'small',
+ 'they',
+ 'may',
+ 'be',
+ 'it',
+ 's',
+ 'a',
+ 'great',
+ 'feeling',
+ 'to',
+ 'know',
+ 'that',
+ 'i',
+ 'worked',
+ 'hard',
+ 'and',
+ 'accomplished',
+ 'something',
+ 'that',
+ 'i',
+ 'set',
+ 'out',
+ 'to',
+ 'do',
+ 'paragraph',
+ 'i',
+ 'm',
+ 'really',
+ 'upset',
+ 'that',
+ 'i',
+ 'didn',
+ 't',
+ 'get',
+ 'the',
+ 'job',
+ 'i',
+ 'applied',
+ 'for',
+ 'i',
+ 'put',
+ 'so',
+ 'much',
+ 'time',
+ 'and',
+ 'effort',
+ 'into',
+ 'my',
+ 'application',
+ 'and',
+ 'interview',
+ 'and',
+ 'it',
+ 's',
+ 'disheartening',
+ 'to',
+ 'not',
+ 'get',
+ 'the',
+ 'position',
+ 'paragraph',
+ 'i',
+ 'm',
+ 'grateful',
+ 'for',
+ 'all',
+ 'the',
+ 'amazing',
+ 'opportunities',
+ 'that',
+ 'have',
+ 'come',
+ 'my',
+ 'way',
+ 'whether',
+ 'it',
+ 's',
+ 'a',
+ 'new',
+ 'job',
+ 'or',
+ 'a',
+ 'chance',
+ 'to',
+ 'travel',
+ 'i',
+ 'feel',
+ 'so',
+ 'lucky',
+ 'to',
+ 'have',
+ 'these',
+ 'experiences',
+ 'and',
+ 'make',
+ 'the',
+ 'most',
+ 'of',
+ 'them',
+ 'paragraph',
+ 'i',
+ 'm',
+ 'so',
+ 'disappointed',
+ 'in',
+ 'myself',
+ 'for',
+ 'not',
+ 'being',
+ 'more',
+ 'disciplined',
+ 'with',
+ 'my',
+ 'diet',
+ 'and',
+ 'exercise',
+ 'routine',
+ 'i',
+ 'know',
+ 'it',
+ 's',
+ 'important',
+ 'for',
+ 'my',
+ 'health',
+ 'but',
+ 'i',
+ 'just',
+ 'can',
+ 't',
+ 'seem',
+ 'to',
+ 'stick',
+ 'to',
+ 'it',
+ 'paragraph',
+ 'i',
+ 'feel',
+ 'anxious',
+ 'and',
+ 'stressed',
+ 'when',
+ 'i',
+ 'have',
+ 'a',
+ 'lot',
+ 'of',
+ 'work',
+ 'to',
+ 'do',
+ 'and',
+ 'not',
+ 'enough',
+ 'time',
+ 'to',
+ 'do',
+ 'it',
+ 'it',
+ 'can',
+ 'be',
+ 'overwhelming',
+ 'and',
+ 'make',
+ 'me',
+ 'feel',
+ 'like',
+ 'i',
+ 'm',
+ 'not',
+ 'in',
+ 'control',
+ 'paragraph',
+ 'i',
+ 'm',
+ 'excited',
+ 'to',
+ 'start',
+ 'a',
+ 'new',
+ 'chapter',
+ 'in',
+ 'my',
+ 'life',
+ 'whether',
+ 'it',
+ 's',
+ 'moving',
+ 'to',
+ 'a',
+ 'new',
+ 'city',
+ 'or',
+ 'starting',
+ 'a',
+ 'new',
+ 'job',
+ 'change',
+ 'can',
+ 'be',
+ 'scary',
+ 'but',
+ 'it',
+ 's',
+ 'also',
+ 'a',
+ 'chance',
+ 'for',
+ 'growth',
+ 'and',
+ 'new',
+ 'opportunities',
+ 'paragraph',
+ 'i',
+ 'm',
+ 'frustrated',
+ 'with',
+ 'the',
+ 'current',
+ 'political',
+ 'climate',
+ 'and',
+ 'the',
+ 'divisiveness',
+ 'that',
+ 'seems',
+ 'to',
+ 'be',
+ 'tearing',
+ 'our',
+ 'country',
+ 'apart',
+ 'i',
+ 'wish',
+ 'we',
+ 'could',
+ 'all',
+ 'come',
+ 'together',
+ 'and',
+ 'work',
+ 'towards',
+ 'a',
+ 'common',
+ 'goal',
+ 'paragraph',
+ 'i',
+ 'm',
+ 'so',
+ 'proud',
+ 'of',
+ 'my',
+ 'friend',
+ 'for',
+ 'overcoming',
+ 'a',
+ 'difficult',
+ 'challenge',
+ 'and',
+ 'coming',
+ 'out',
+ 'stronger',
+ 'on',
+ 'the',
+ 'other',
+ 'side',
+ 'it',
+ 'takes',
+ 'a',
+ 'lot',
+ 'of',
+ 'courage',
+ 'and',
+ 'resilience',
+ 'to',
+ 'face',
+ 'adversity',
+ 'and',
+ 'they',
+ 'did',
+ 'it',
+ 'with',
+ 'grace',
+ 'and',
+ 'determination']
+[ ]
+filtered_text1=[]
+for a in tokens:
+ if a not in stop_words:
+    filtered_text1.append(a)
+[ ]
+filtered_text1
+['paragraph',
+ 'love',
+ 'spending',
+ 'time',
+ 'family',
+ 'friends',
+ 'always',
+ 'much',
+ 'fun',
+ 'together',
+ 'whether',
+ 'going',
+ 'trip',
+ 'hanging',
+ 'home',
+ 'feel',
+ 'lucky',
+ 'supportive',
+ 'loving',
+ 'group',
+ 'people',
+ 'life',
+ 'paragraph',
+ 'hate',
+ 'people',
+ 'mean',
+ 'disrespectful',
+ 'really',
+ 'gets',
+ 'skin',
+ 'ruins',
+ 'mood',
+ 'wish',
+ 'everyone',
+ 'could',
+ 'kind',
+ 'understanding',
+ 'towards',
+ 'one',
+ 'another',
+ 'paragraph',
+ 'feel',
+ 'happy',
+ 'achieve',
+ 'goals',
+ 'matter',
+ 'small',
+ 'may',
+ 'great',
+ 'feeling',
+ 'know',
+ 'worked',
+ 'hard',
+ 'accomplished',
+ 'something',
+ 'set',
+ 'paragraph',
+ 'really',
+ 'upset',
+ 'get',
+ 'job',
+ 'applied',
+ 'put',
+ 'much',
+ 'time',
+ 'effort',
+ 'application',
+ 'interview',
+ 'disheartening',
+ 'get',
+ 'position',
+ 'paragraph',
+ 'grateful',
+ 'amazing',
+ 'opportunities',
+ 'come',
+ 'way',
+ 'whether',
+ 'new',
+ 'job',
+ 'chance',
+ 'travel',
+ 'feel',
+ 'lucky',
+ 'experiences',
+ 'make',
+ 'paragraph',
+ 'disappointed',
+ 'disciplined',
+ 'diet',
+ 'exercise',
+ 'routine',
+ 'know',
+ 'important',
+ 'health',
+ 'seem',
+ 'stick',
+ 'paragraph',
+ 'feel',
+ 'anxious',
+ 'stressed',
+ 'lot',
+ 'work',
+ 'enough',
+ 'time',
+ 'overwhelming',
+ 'make',
+ 'feel',
+ 'like',
+ 'control',
+ 'paragraph',
+ 'excited',
+ 'start',
+ 'new',
+ 'chapter',
+ 'life',
+ 'whether',
+ 'moving',
+ 'new',
+ 'city',
+ 'starting',
+ 'new',
+ 'job',
+ 'change',
+ 'scary',
+ 'also',
+ 'chance',
+ 'growth',
+ 'new',
+ 'opportunities',
+ 'paragraph',
+ 'frustrated',
+ 'current',
+ 'political',
+ 'climate',
+ 'divisiveness',
+ 'seems',
+ 'tearing',
+ 'country',
+ 'apart',
+ 'wish',
+ 'could',
+ 'come',
+ 'together',
+ 'work',
+ 'towards',
+ 'common',
+ 'goal',
+ 'paragraph',
+ 'proud',
+ 'friend',
+ 'overcoming',
+ 'difficult',
+ 'challenge',
+ 'coming',
+ 'stronger',
+ 'side',
+ 'takes',
+ 'lot',
+ 'courage',
+ 'resilience',
+ 'face',
+ 'adversity',
+ 'grace',
+ 'determination']
+Steaming And Lemmanization
+
+[ ]
+from nltk.stem import PorterStemmer
+e_words=[filtered_text1]
+ps =PorterStemmer()
+for w in e_words:
+  rootWord=ps.stem(a)
+  print(rootWord)
+
+determin
+[ ]
+from nltk.stem import WordNetLemmatizer
+wordnet_lemmatizer = WordNetLemmatizer()
+text = "Studies Studying cries cry"
+tokenization = nltk.word_tokenize(text1)
+for a in tokenization:
+   print("Lemma for {} is {}".format(a, wordnet_lemmatizer.lemmatize(a)))
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for love is love
+Lemma for spending is spending
+Lemma for time is time
+Lemma for with is with
+Lemma for my is my
+Lemma for family is family
+Lemma for and is and
+Lemma for friends is friend
+Lemma for We is We
+Lemma for always is always
+Lemma for have is have
+Lemma for so is so
+Lemma for much is much
+Lemma for fun is fun
+Lemma for together is together
+Lemma for whether is whether
+Lemma for it is it
+Lemma for s is s
+Lemma for going is going
+Lemma for on is on
+Lemma for a is a
+Lemma for trip is trip
+Lemma for or is or
+Lemma for just is just
+Lemma for hanging is hanging
+Lemma for out is out
+Lemma for at is at
+Lemma for home is home
+Lemma for I is I
+Lemma for feel is feel
+Lemma for so is so
+Lemma for lucky is lucky
+Lemma for to is to
+Lemma for have is have
+Lemma for such is such
+Lemma for a is a
+Lemma for supportive is supportive
+Lemma for and is and
+Lemma for loving is loving
+Lemma for group is group
+Lemma for of is of
+Lemma for people is people
+Lemma for in is in
+Lemma for my is my
+Lemma for life is life
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for hate is hate
+Lemma for it is it
+Lemma for when is when
+Lemma for people is people
+Lemma for are is are
+Lemma for mean is mean
+Lemma for and is and
+Lemma for disrespectful is disrespectful
+Lemma for It is It
+Lemma for really is really
+Lemma for gets is get
+Lemma for under is under
+Lemma for my is my
+Lemma for skin is skin
+Lemma for and is and
+Lemma for ruins is ruin
+Lemma for my is my
+Lemma for mood is mood
+Lemma for I is I
+Lemma for wish is wish
+Lemma for everyone is everyone
+Lemma for could is could
+Lemma for just is just
+Lemma for be is be
+Lemma for kind is kind
+Lemma for and is and
+Lemma for understanding is understanding
+Lemma for towards is towards
+Lemma for one is one
+Lemma for another is another
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for feel is feel
+Lemma for so is so
+Lemma for happy is happy
+Lemma for when is when
+Lemma for I is I
+Lemma for achieve is achieve
+Lemma for my is my
+Lemma for goals is goal
+Lemma for no is no
+Lemma for matter is matter
+Lemma for how is how
+Lemma for small is small
+Lemma for they is they
+Lemma for may is may
+Lemma for be is be
+Lemma for It is It
+Lemma for s is s
+Lemma for a is a
+Lemma for great is great
+Lemma for feeling is feeling
+Lemma for to is to
+Lemma for know is know
+Lemma for that is that
+Lemma for I is I
+Lemma for worked is worked
+Lemma for hard is hard
+Lemma for and is and
+Lemma for accomplished is accomplished
+Lemma for something is something
+Lemma for that is that
+Lemma for I is I
+Lemma for set is set
+Lemma for out is out
+Lemma for to is to
+Lemma for do is do
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for m is m
+Lemma for really is really
+Lemma for upset is upset
+Lemma for that is that
+Lemma for I is I
+Lemma for didn is didn
+Lemma for t is t
+Lemma for get is get
+Lemma for the is the
+Lemma for job is job
+Lemma for I is I
+Lemma for applied is applied
+Lemma for for is for
+Lemma for I is I
+Lemma for put is put
+Lemma for so is so
+Lemma for much is much
+Lemma for time is time
+Lemma for and is and
+Lemma for effort is effort
+Lemma for into is into
+Lemma for my is my
+Lemma for application is application
+Lemma for and is and
+Lemma for interview is interview
+Lemma for and is and
+Lemma for it is it
+Lemma for s is s
+Lemma for disheartening is disheartening
+Lemma for to is to
+Lemma for not is not
+Lemma for get is get
+Lemma for the is the
+Lemma for position is position
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for m is m
+Lemma for grateful is grateful
+Lemma for for is for
+Lemma for all is all
+Lemma for the is the
+Lemma for amazing is amazing
+Lemma for opportunities is opportunity
+Lemma for that is that
+Lemma for have is have
+Lemma for come is come
+Lemma for my is my
+Lemma for way is way
+Lemma for Whether is Whether
+Lemma for it is it
+Lemma for s is s
+Lemma for a is a
+Lemma for new is new
+Lemma for job is job
+Lemma for or is or
+Lemma for a is a
+Lemma for chance is chance
+Lemma for to is to
+Lemma for travel is travel
+Lemma for I is I
+Lemma for feel is feel
+Lemma for so is so
+Lemma for lucky is lucky
+Lemma for to is to
+Lemma for have is have
+Lemma for these is these
+Lemma for experiences is experience
+Lemma for and is and
+Lemma for make is make
+Lemma for the is the
+Lemma for most is most
+Lemma for of is of
+Lemma for them is them
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for m is m
+Lemma for so is so
+Lemma for disappointed is disappointed
+Lemma for in is in
+Lemma for myself is myself
+Lemma for for is for
+Lemma for not is not
+Lemma for being is being
+Lemma for more is more
+Lemma for disciplined is disciplined
+Lemma for with is with
+Lemma for my is my
+Lemma for diet is diet
+Lemma for and is and
+Lemma for exercise is exercise
+Lemma for routine is routine
+Lemma for I is I
+Lemma for know is know
+Lemma for it is it
+Lemma for s is s
+Lemma for important is important
+Lemma for for is for
+Lemma for my is my
+Lemma for health is health
+Lemma for but is but
+Lemma for I is I
+Lemma for just is just
+Lemma for can is can
+Lemma for t is t
+Lemma for seem is seem
+Lemma for to is to
+Lemma for stick is stick
+Lemma for to is to
+Lemma for it is it
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for feel is feel
+Lemma for anxious is anxious
+Lemma for and is and
+Lemma for stressed is stressed
+Lemma for when is when
+Lemma for I is I
+Lemma for have is have
+Lemma for a is a
+Lemma for lot is lot
+Lemma for of is of
+Lemma for work is work
+Lemma for to is to
+Lemma for do is do
+Lemma for and is and
+Lemma for not is not
+Lemma for enough is enough
+Lemma for time is time
+Lemma for to is to
+Lemma for do is do
+Lemma for it is it
+Lemma for It is It
+Lemma for can is can
+Lemma for be is be
+Lemma for overwhelming is overwhelming
+Lemma for and is and
+Lemma for make is make
+Lemma for me is me
+Lemma for feel is feel
+Lemma for like is like
+Lemma for I is I
+Lemma for m is m
+Lemma for not is not
+Lemma for in is in
+Lemma for control is control
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for m is m
+Lemma for excited is excited
+Lemma for to is to
+Lemma for start is start
+Lemma for a is a
+Lemma for new is new
+Lemma for chapter is chapter
+Lemma for in is in
+Lemma for my is my
+Lemma for life is life
+Lemma for whether is whether
+Lemma for it is it
+Lemma for s is s
+Lemma for moving is moving
+Lemma for to is to
+Lemma for a is a
+Lemma for new is new
+Lemma for city is city
+Lemma for or is or
+Lemma for starting is starting
+Lemma for a is a
+Lemma for new is new
+Lemma for job is job
+Lemma for Change is Change
+Lemma for can is can
+Lemma for be is be
+Lemma for scary is scary
+Lemma for but is but
+Lemma for it is it
+Lemma for s is s
+Lemma for also is also
+Lemma for a is a
+Lemma for chance is chance
+Lemma for for is for
+Lemma for growth is growth
+Lemma for and is and
+Lemma for new is new
+Lemma for opportunities is opportunity
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for m is m
+Lemma for frustrated is frustrated
+Lemma for with is with
+Lemma for the is the
+Lemma for current is current
+Lemma for political is political
+Lemma for climate is climate
+Lemma for and is and
+Lemma for the is the
+Lemma for divisiveness is divisiveness
+Lemma for that is that
+Lemma for seems is seems
+Lemma for to is to
+Lemma for be is be
+Lemma for tearing is tearing
+Lemma for our is our
+Lemma for country is country
+Lemma for apart is apart
+Lemma for I is I
+Lemma for wish is wish
+Lemma for we is we
+Lemma for could is could
+Lemma for all is all
+Lemma for come is come
+Lemma for together is together
+Lemma for and is and
+Lemma for work is work
+Lemma for towards is towards
+Lemma for a is a
+Lemma for common is common
+Lemma for goal is goal
+Lemma for Paragraph is Paragraph
+Lemma for I is I
+Lemma for m is m
+Lemma for so is so
+Lemma for proud is proud
+Lemma for of is of
+Lemma for my is my
+Lemma for friend is friend
+Lemma for for is for
+Lemma for overcoming is overcoming
+Lemma for a is a
+Lemma for difficult is difficult
+Lemma for challenge is challenge
+Lemma for and is and
+Lemma for coming is coming
+Lemma for out is out
+Lemma for stronger is stronger
+Lemma for on is on
+Lemma for the is the
+Lemma for other is other
+Lemma for side is side
+Lemma for It is It
+Lemma for takes is take
+Lemma for a is a
+Lemma for lot is lot
+Lemma for of is of
+Lemma for courage is courage
+Lemma for and is and
+Lemma for resilience is resilience
+Lemma for to is to
+Lemma for face is face
+Lemma for adversity is adversity
+Lemma for and is and
+Lemma for they is they
+Lemma for did is did
+Lemma for it is it
+Lemma for with is with
+Lemma for grace is grace
+Lemma for and is and
+Lemma for determination is determination
+POS tagging
+
+[ ]
+import nltk
+from nltk.tokenize import word_tokenize
+
+words=word_tokenize(text1)
+for word in words:
+  print(nltk.pos_tag([word]))
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('love', 'NN')]
+[('spending', 'NN')]
+[('time', 'NN')]
+[('with', 'IN')]
+[('my', 'PRP$')]
+[('family', 'NN')]
+[('and', 'CC')]
+[('friends', 'NNS')]
+[('We', 'PRP')]
+[('always', 'RB')]
+[('have', 'VB')]
+[('so', 'RB')]
+[('much', 'JJ')]
+[('fun', 'NN')]
+[('together', 'RB')]
+[('whether', 'IN')]
+[('it', 'PRP')]
+[('s', 'NN')]
+[('going', 'VBG')]
+[('on', 'IN')]
+[('a', 'DT')]
+[('trip', 'NN')]
+[('or', 'CC')]
+[('just', 'RB')]
+[('hanging', 'VBG')]
+[('out', 'IN')]
+[('at', 'IN')]
+[('home', 'NN')]
+[('I', 'PRP')]
+[('feel', 'NN')]
+[('so', 'RB')]
+[('lucky', 'JJ')]
+[('to', 'TO')]
+[('have', 'VB')]
+[('such', 'JJ')]
+[('a', 'DT')]
+[('supportive', 'NN')]
+[('and', 'CC')]
+[('loving', 'VBG')]
+[('group', 'NN')]
+[('of', 'IN')]
+[('people', 'NNS')]
+[('in', 'IN')]
+[('my', 'PRP$')]
+[('life', 'NN')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('hate', 'NN')]
+[('it', 'PRP')]
+[('when', 'WRB')]
+[('people', 'NNS')]
+[('are', 'VBP')]
+[('mean', 'NN')]
+[('and', 'CC')]
+[('disrespectful', 'NN')]
+[('It', 'PRP')]
+[('really', 'RB')]
+[('gets', 'VBZ')]
+[('under', 'IN')]
+[('my', 'PRP$')]
+[('skin', 'NN')]
+[('and', 'CC')]
+[('ruins', 'NNS')]
+[('my', 'PRP$')]
+[('mood', 'NN')]
+[('I', 'PRP')]
+[('wish', 'NN')]
+[('everyone', 'NN')]
+[('could', 'MD')]
+[('just', 'RB')]
+[('be', 'VB')]
+[('kind', 'NN')]
+[('and', 'CC')]
+[('understanding', 'VBG')]
+[('towards', 'NNS')]
+[('one', 'CD')]
+[('another', 'DT')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('feel', 'NN')]
+[('so', 'RB')]
+[('happy', 'JJ')]
+[('when', 'WRB')]
+[('I', 'PRP')]
+[('achieve', 'NN')]
+[('my', 'PRP$')]
+[('goals', 'NNS')]
+[('no', 'DT')]
+[('matter', 'NN')]
+[('how', 'WRB')]
+[('small', 'JJ')]
+[('they', 'PRP')]
+[('may', 'MD')]
+[('be', 'VB')]
+[('It', 'PRP')]
+[('s', 'NN')]
+[('a', 'DT')]
+[('great', 'JJ')]
+[('feeling', 'VBG')]
+[('to', 'TO')]
+[('know', 'VB')]
+[('that', 'IN')]
+[('I', 'PRP')]
+[('worked', 'VBN')]
+[('hard', 'JJ')]
+[('and', 'CC')]
+[('accomplished', 'VBN')]
+[('something', 'NN')]
+[('that', 'IN')]
+[('I', 'PRP')]
+[('set', 'NN')]
+[('out', 'IN')]
+[('to', 'TO')]
+[('do', 'VB')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('m', 'NN')]
+[('really', 'RB')]
+[('upset', 'NN')]
+[('that', 'IN')]
+[('I', 'PRP')]
+[('didn', 'NN')]
+[('t', 'NN')]
+[('get', 'VB')]
+[('the', 'DT')]
+[('job', 'NN')]
+[('I', 'PRP')]
+[('applied', 'VBN')]
+[('for', 'IN')]
+[('I', 'PRP')]
+[('put', 'NN')]
+[('so', 'RB')]
+[('much', 'JJ')]
+[('time', 'NN')]
+[('and', 'CC')]
+[('effort', 'NN')]
+[('into', 'IN')]
+[('my', 'PRP$')]
+[('application', 'NN')]
+[('and', 'CC')]
+[('interview', 'NN')]
+[('and', 'CC')]
+[('it', 'PRP')]
+[('s', 'NN')]
+[('disheartening', 'VBG')]
+[('to', 'TO')]
+[('not', 'RB')]
+[('get', 'VB')]
+[('the', 'DT')]
+[('position', 'NN')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('m', 'NN')]
+[('grateful', 'NN')]
+[('for', 'IN')]
+[('all', 'DT')]
+[('the', 'DT')]
+[('amazing', 'VBG')]
+[('opportunities', 'NNS')]
+[('that', 'IN')]
+[('have', 'VB')]
+[('come', 'VB')]
+[('my', 'PRP$')]
+[('way', 'NN')]
+[('Whether', 'IN')]
+[('it', 'PRP')]
+[('s', 'NN')]
+[('a', 'DT')]
+[('new', 'JJ')]
+[('job', 'NN')]
+[('or', 'CC')]
+[('a', 'DT')]
+[('chance', 'NN')]
+[('to', 'TO')]
+[('travel', 'NN')]
+[('I', 'PRP')]
+[('feel', 'NN')]
+[('so', 'RB')]
+[('lucky', 'JJ')]
+[('to', 'TO')]
+[('have', 'VB')]
+[('these', 'DT')]
+[('experiences', 'NNS')]
+[('and', 'CC')]
+[('make', 'VB')]
+[('the', 'DT')]
+[('most', 'JJS')]
+[('of', 'IN')]
+[('them', 'PRP')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('m', 'NN')]
+[('so', 'RB')]
+[('disappointed', 'JJ')]
+[('in', 'IN')]
+[('myself', 'PRP')]
+[('for', 'IN')]
+[('not', 'RB')]
+[('being', 'VBG')]
+[('more', 'RBR')]
+[('disciplined', 'VBN')]
+[('with', 'IN')]
+[('my', 'PRP$')]
+[('diet', 'NN')]
+[('and', 'CC')]
+[('exercise', 'NN')]
+[('routine', 'NN')]
+[('I', 'PRP')]
+[('know', 'VB')]
+[('it', 'PRP')]
+[('s', 'NN')]
+[('important', 'JJ')]
+[('for', 'IN')]
+[('my', 'PRP$')]
+[('health', 'NN')]
+[('but', 'CC')]
+[('I', 'PRP')]
+[('just', 'RB')]
+[('can', 'MD')]
+[('t', 'NN')]
+[('seem', 'NN')]
+[('to', 'TO')]
+[('stick', 'NN')]
+[('to', 'TO')]
+[('it', 'PRP')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('feel', 'NN')]
+[('anxious', 'JJ')]
+[('and', 'CC')]
+[('stressed', 'VBN')]
+[('when', 'WRB')]
+[('I', 'PRP')]
+[('have', 'VB')]
+[('a', 'DT')]
+[('lot', 'NN')]
+[('of', 'IN')]
+[('work', 'NN')]
+[('to', 'TO')]
+[('do', 'VB')]
+[('and', 'CC')]
+[('not', 'RB')]
+[('enough', 'RB')]
+[('time', 'NN')]
+[('to', 'TO')]
+[('do', 'VB')]
+[('it', 'PRP')]
+[('It', 'PRP')]
+[('can', 'MD')]
+[('be', 'VB')]
+[('overwhelming', 'VBG')]
+[('and', 'CC')]
+[('make', 'VB')]
+[('me', 'PRP')]
+[('feel', 'NN')]
+[('like', 'IN')]
+[('I', 'PRP')]
+[('m', 'NN')]
+[('not', 'RB')]
+[('in', 'IN')]
+[('control', 'NN')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('m', 'NN')]
+[('excited', 'VBN')]
+[('to', 'TO')]
+[('start', 'NN')]
+[('a', 'DT')]
+[('new', 'JJ')]
+[('chapter', 'NN')]
+[('in', 'IN')]
+[('my', 'PRP$')]
+[('life', 'NN')]
+[('whether', 'IN')]
+[('it', 'PRP')]
+[('s', 'NN')]
+[('moving', 'VBG')]
+[('to', 'TO')]
+[('a', 'DT')]
+[('new', 'JJ')]
+[('city', 'NN')]
+[('or', 'CC')]
+[('starting', 'VBG')]
+[('a', 'DT')]
+[('new', 'JJ')]
+[('job', 'NN')]
+[('Change', 'NN')]
+[('can', 'MD')]
+[('be', 'VB')]
+[('scary', 'JJ')]
+[('but', 'CC')]
+[('it', 'PRP')]
+[('s', 'NN')]
+[('also', 'RB')]
+[('a', 'DT')]
+[('chance', 'NN')]
+[('for', 'IN')]
+[('growth', 'NN')]
+[('and', 'CC')]
+[('new', 'JJ')]
+[('opportunities', 'NNS')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('m', 'NN')]
+[('frustrated', 'VBN')]
+[('with', 'IN')]
+[('the', 'DT')]
+[('current', 'JJ')]
+[('political', 'JJ')]
+[('climate', 'NN')]
+[('and', 'CC')]
+[('the', 'DT')]
+[('divisiveness', 'NN')]
+[('that', 'IN')]
+[('seems', 'VBZ')]
+[('to', 'TO')]
+[('be', 'VB')]
+[('tearing', 'VBG')]
+[('our', 'PRP$')]
+[('country', 'NN')]
+[('apart', 'RB')]
+[('I', 'PRP')]
+[('wish', 'NN')]
+[('we', 'PRP')]
+[('could', 'MD')]
+[('all', 'DT')]
+[('come', 'VB')]
+[('together', 'RB')]
+[('and', 'CC')]
+[('work', 'NN')]
+[('towards', 'NNS')]
+[('a', 'DT')]
+[('common', 'JJ')]
+[('goal', 'NN')]
+[('Paragraph', 'NN')]
+[('I', 'PRP')]
+[('m', 'NN')]
+[('so', 'RB')]
+[('proud', 'NN')]
+[('of', 'IN')]
+[('my', 'PRP$')]
+[('friend', 'NN')]
+[('for', 'IN')]
+[('overcoming', 'VBG')]
+[('a', 'DT')]
+[('difficult', 'JJ')]
+[('challenge', 'NN')]
+[('and', 'CC')]
+[('coming', 'VBG')]
+[('out', 'IN')]
+[('stronger', 'JJR')]
+[('on', 'IN')]
+[('the', 'DT')]
+[('other', 'JJ')]
+[('side', 'NN')]
+[('It', 'PRP')]
+[('takes', 'VBZ')]
+[('a', 'DT')]
+[('lot', 'NN')]
+[('of', 'IN')]
+[('courage', 'NN')]
+[('and', 'CC')]
+[('resilience', 'NN')]
+[('to', 'TO')]
+[('face', 'NN')]
+[('adversity', 'NN')]
+[('and', 'CC')]
+[('they', 'PRP')]
+[('did', 'VBD')]
+[('it', 'PRP')]
+[('with', 'IN')]
+[('grace', 'NN')]
+[('and', 'CC')]
+[('determination', 'NN')]
+[ ]
+import pandas as pd
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+[ ]
+with open('/DS-7(Text_Paragraph)csv.xls', 'r') as file:
+#with open('/dataset1.csv (1).xls', 'r') as file:
+  text1 = file.read()
+
+
+[ ]
+# Create a word cloud object
+wordcloud = WordCloud(width=800, height=800, background_color='white').generate(text1)
+
+# Plot the word cloud
+plt.figure(figsize=(8, 8), facecolor=None)
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.tight_layout(pad=0)
+ 
+plt.show()
+
+Colab paid products - Cancel contracts here
+Loading...
+TextAnalytics_Part2.ipynb
+TextAnalytics_Part2.ipynb_Notebook unstarred
+2. Create representation of document by calculating Term Frequency and Inverse Document Frequency.
+
+Term Frequency TF(w,d)=occurences of w in document d /total number of words in document d
+
+Term Frequency - Inverse Document Frequency(TFIDE) TFIDE(w,d,D) = TF(w,d)*IDE(w,D)
+
+[ ]
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+[ ]
+documentA = 'Jupiter is the largest Planet'
+documentB ='Mars is the fourth planet from the Sun'
+Creating a BagofWords for Document A and B
+
+[ ]
+bagOfWordsA = documentA.split(' ')
+bagOfWordsB = documentB.split(' ')
+[ ]
+uniqueWords = set(bagOfWordsA).union(bagOfWordsB)
+uniqueWords
+{'Jupiter',
+ 'Mars',
+ 'Planet',
+ 'Sun',
+ 'fourth',
+ 'from',
+ 'is',
+ 'largest',
+ 'planet',
+ 'the'}
+[ ]
+numberOfWordsA = dict.fromkeys(uniqueWords,0)
+for word in bagOfWordsA:
+  numberOfWordsA[word] += 1
+
+[ ]
+numberOfWordsA
+{'is': 1,
+ 'Planet': 1,
+ 'largest': 1,
+ 'fourth': 0,
+ 'Mars': 0,
+ 'planet': 0,
+ 'the': 1,
+ 'from': 0,
+ 'Jupiter': 1,
+ 'Sun': 0}
+[ ]
+numberOfWordsB = dict.fromkeys(uniqueWords,0)
+for word in bagOfWordsB:
+  numberOfWordsB[word] += 1
+[ ]
+numberOfWordsB
+{'is': 1,
+ 'Planet': 0,
+ 'largest': 0,
+ 'fourth': 1,
+ 'Mars': 1,
+ 'planet': 1,
+ 'the': 2,
+ 'from': 1,
+ 'Jupiter': 0,
+ 'Sun': 1}
+IDF
+
+[ ]
+def computeTF(wordDict, bagOfWords):
+    TfDict = {}
+    bagOfWordsCount = len(bagOfWords)
+    for word, count in wordDict.items():
+        TfDict[word] = count / float(bagOfWordsCount)
+    return TfDict
+
+[ ]
+tfA = computeTF(numberOfWordsA,bagOfWordsA)
+tfB = computeTF(numberOfWordsB,bagOfWordsB)
+[ ]
+tfA
+{'is': 0.4,
+ 'Planet': 0.2,
+ 'largest': 0.2,
+ 'fourth': 0.2,
+ 'Mars': 0.2,
+ 'planet': 0.2,
+ 'the': 0.6,
+ 'from': 0.2,
+ 'Jupiter': 0.2,
+ 'Sun': 0.2}
+[ ]
+tfB
+{'is': 0.125,
+ 'Planet': 0.0,
+ 'largest': 0.0,
+ 'fourth': 0.125,
+ 'Mars': 0.125,
+ 'planet': 0.125,
+ 'the': 0.25,
+ 'from': 0.125,
+ 'Jupiter': 0.0,
+ 'Sun': 0.125}
+Invoice Frequency
+
+[ ]
+def computeIDF(documents):
+  import math
+  N = len(documents)
+  idfDict = dict.fromkeys(documents[0].keys(),0)
+  for document in documents:
+    for word, val in document.items():
+      if val > 0:
+        idfDict[word] += 1
+  for word,val in idfDict.items():
+    idfDict[word] = math.log(N / float(val))
+    return idfDict
+[ ]
+idfs = computeIDF([numberOfWordsA,numberOfWordsB])
+idfs
+{'is': 0.0,
+ 'Planet': 1,
+ 'largest': 1,
+ 'fourth': 2,
+ 'Mars': 2,
+ 'planet': 2,
+ 'the': 2,
+ 'from': 2,
+ 'Jupiter': 1,
+ 'Sun': 2}
+TFIDF
+
+[ ]
+def computeTFIDF(tfBagofWords,idfs):
+  tfidf={}
+  for word, val in tfBagofWords.items():
+   tfidf[word]=val*idfs[word]
+  return tfidf
+[ ]
+tfDifA = computeTFIDF(tfA,idfs)
+[ ]
+tfDifB = computeTFIDF(tfB,idfs)
+[ ]
+tfDifA
+{'is': 0.0,
+ 'Planet': 0.2,
+ 'largest': 0.2,
+ 'fourth': 0.4,
+ 'Mars': 0.4,
+ 'planet': 0.4,
+ 'the': 1.2,
+ 'from': 0.4,
+ 'Jupiter': 0.2,
+ 'Sun': 0.4}
+[ ]
+tfDifB
+{'is': 0.0,
+ 'Planet': 0.0,
+ 'largest': 0.0,
+ 'fourth': 0.25,
+ 'Mars': 0.25,
+ 'planet': 0.25,
+ 'the': 0.5,
+ 'from': 0.25,
+ 'Jupiter': 0.0,
+ 'Sun': 0.25}
+[ ]
+df=pd.DataFrame([tfDifA,tfDifB])
+df
+
+Colab paid products - Cancel contracts here
+

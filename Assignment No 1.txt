@@ -1,0 +1,25 @@
+import pandas as pd
+import numpy as np
+import sklearn   # It provides a selection of efficient tools for machine learning and statistical modeling including classification, regression, clustering and dimensionality reduction via a consistence interface in Python.
+from sklearn import datasets
+student = pd.read_csv('StudentsPerformance.csv')
+df=student
+df
+print(df)
+df.dtypes
+df.info()
+df.head()
+df.tail()
+df.isnull()
+df.describe()
+df['reading score'].describe()
+sr=pd.Series([1,2,3,4,5,6,7,8,9,10])
+sr.describe()
+df.dtypes
+df.shape
+df['reading score'].astype('float')
+df['reading score']=df['reading score'].astype('float')
+df.dtypes
+print(df)
+pd.get_dummies(df['gender'])
+pd.get_dummies(df['parental level of education'])

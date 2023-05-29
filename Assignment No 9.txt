@@ -1,0 +1,32 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+train=pd.read_csv('train.csv')
+train.head()
+train.head(891)
+train.isnull().sum()
+sns.boxplot(x='Sex',y='Age',data=train,hue="Survived")
+sns.boxplot(x= 'Embarked', y='Age',data=train,hue='Survived',  dodge=True)
+sns.catplot(x ="Sex", hue ="Survived",
+kind ="count", data = train)
+sns.catplot(x='Sex',y='Age',hue='Survived',data=train)
+sns.countplot(x='Embarked', hue='Survived', data=train)
+sns.countplot(x='Survived',hue='Pclass',data=train)
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+train=pd.read_csv('train.csv')
+plt.title("Titanic Survived")
+plt.show()
+sns.countplot(x='SibSp',data=train)
+colormap = plt.cm.Blues
+plt.figure(figsize=(14,10))
+sns.heatmap(train.corr(),cmap=colormap,annot=True,linewidths=0.2)
+sns.regplot(x="Pclass", y="Age", data=train) #linear regression plot
+sns.lmplot(x="Age", y="Pclass", hue="Survived", data=train) 
+sns.lmplot(x="Age", y="Pclass", hue="Survived",
+           col="Embarked", row="Sex", data=train, height=3)
+sns.jointplot(x="Age", y="Pclass", data=train, kind="hex")
+grp= train.loc[:,['Embarked','Sex']]
+print(grp)
